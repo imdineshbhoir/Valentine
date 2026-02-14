@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dinesh ❤️ Rasika</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      perspective: 1200px; /* 3D depth */
+      background: radial-gradient(circle at 30% 20%, #ff9ac2, transparent 40%),
+                  radial-gradient(circle at 70% 80%, #ff4b7d, transparent 40%),
+                  linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      animation: bgMove 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgMove {
+      from { background-position: 0% 0%, 100% 100%, center; }
+      to { background-position: 20% 20%, 80% 80%, center; }
+    }
+
+    /* Floating 3D card */
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(20px);
+      padding: 45px 40px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+      max-width: 430px;
+      transform-style: preserve-3d;
+      animation: float3d 4s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: rotateY(8deg) rotateX(6deg) scale(1.03);
+    }
+
+    @keyframes float3d {
+      0%, 100% { transform: translateY(0) rotateY(0deg); }
+      50% { transform: translateY(-15px) rotateY(3deg); }
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    h2 { margin: 10px 0 20px; font-weight: 600; }
+
+    .from {
+      margin-top: 20px;
+      opacity: 0.95;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 70px;
+      margin-top: 25px;
+    }
+
+    button {
+      border: none;
+      padding: 12px 26px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      position: absolute;
+      font-weight: 600;
+      transform-style: preserve-3d;
+      transition: all 0.25s ease;
+    }
+
+    .yes {
+      background: linear-gradient(45deg, #ffffff, #ffe3ed);
+      color: #ff2f6d;
+      left: 28%;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    }
+
+    .yes:hover {
+      transform: translateY(-3px) scale(1.08);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.35);
+    }
+
+    .no {
+      background: linear-gradient(45deg, #ff2f6d, #ff6f9f);
+      color: white;
+      left: 55%;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    }
+
+    /* 3D hearts floating in background */
+    .heart3d {
+      position: absolute;
+      font-size: 28px;
+      animation: floatHeart linear infinite;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+      transform: translateZ(0);
+    }
+
+    @keyframes floatHeart {
+      from { transform: translateY(100vh) scale(0.8) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      to { transform: translateY(-10vh) scale(1.3) rotate(360deg); opacity: 0; }
+    }
+
+    .success {
+      font-size: 1.9rem;
+      animation: pop 0.6s ease forwards;
+      line-height: 1.6;
+      text-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5) rotateX(40deg); opacity: 0; }
+      100% { transform: scale(1) rotateX(0deg); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background music -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5b1b0a6c9f.mp3?filename=romantic-piano-ambient-110997.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card" id="card">
+    <h1>Rasika ❤️</h1>
+    <p>I have something special to ask you...</p>
+    <h2>Will you be my Valentine? 💌</h2>
+
+    <div class="buttons">
+      <button class="yes" onclick="sayYes()">Yes 💖</button>
+      <button class="no" id="noBtn" onmouseover="moveNo()">No 😜</button>
+    </div>
+  </div>
+
+  <script>
+    function moveNo() {
+      const btn = document.getElementById('noBtn');
+      const x = Math.random() * window.innerWidth * 0.7;
+      const y = Math.random() * window.innerHeight * 0.6;
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+    }
+
+    function sayYes() {
+      const music = document.getElementById('bgMusic');
+      music.play().catch(() => {});
+
+      const card = document.getElementById('card');
+      card.innerHTML = `
+        <div class="success">
+          Yayyy Rasika! 💖💖💖<br>
+          You just made my day 😍<br><br>
+          Forever yours,<br>
+          <b>Dinesh Bhoir</b> 💘
+        </div>`;
+      startHearts();
+    }
+
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart3d';
+        heart.innerText = '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, 250);
+    }
+  </script>
+</body>
+</html>
