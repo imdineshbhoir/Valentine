@@ -2,141 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Dinesh ❤️ Rasika</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      height: 100vh;
+      min-height: 100svh; /* iPhone safe viewport */
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
-      perspective: 1200px; /* 3D depth */
-      background: radial-gradient(circle at 30% 20%, #ff9ac2, transparent 40%),
-                  radial-gradient(circle at 70% 80%, #ff4b7d, transparent 40%),
-                  linear-gradient(135deg, #ff758c, #ff7eb3);
+      padding: 20px;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
       color: white;
-      animation: bgMove 10s ease-in-out infinite alternate;
+      overflow-x: hidden;
     }
 
-    @keyframes bgMove {
-      from { background-position: 0% 0%, 100% 100%, center; }
-      to { background-position: 20% 20%, 80% 80%, center; }
-    }
-
-    /* Floating 3D card */
+    /* Mobile friendly 3D glass card */
     .card {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(20px);
-      padding: 45px 40px;
-      border-radius: 25px;
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(18px);
+      border-radius: 22px;
+      padding: 28px 22px 30px;
       text-align: center;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-      max-width: 430px;
-      transform-style: preserve-3d;
-      animation: float3d 4s ease-in-out infinite;
-      transition: transform 0.3s ease;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      animation: floatSoft 5s ease-in-out infinite;
     }
 
-    .card:hover {
-      transform: rotateY(8deg) rotateX(6deg) scale(1.03);
-    }
-
-    @keyframes float3d {
-      0%, 100% { transform: translateY(0) rotateY(0deg); }
-      50% { transform: translateY(-15px) rotateY(3deg); }
+    @keyframes floatSoft {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     h1 {
-      font-size: 2.4rem;
-      margin-bottom: 10px;
-      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      font-size: clamp(1.8rem, 6vw, 2.2rem);
+      margin: 6px 0 10px;
     }
 
-    h2 { margin: 10px 0 20px; font-weight: 600; }
-
-    .from {
-      margin-top: 20px;
+    p {
       opacity: 0.95;
+      margin: 0 0 6px;
       font-size: 0.95rem;
-      letter-spacing: 0.5px;
+    }
+
+    h2 {
+      font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+      margin: 10px 0 18px;
+      font-weight: 600;
     }
 
     .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 18px;
       position: relative;
-      height: 70px;
-      margin-top: 25px;
+      min-height: 60px;
     }
 
     button {
       border: none;
-      padding: 12px 26px;
+      padding: 14px 20px;
       font-size: 1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      position: absolute;
+      border-radius: 999px;
       font-weight: 600;
-      transform-style: preserve-3d;
-      transition: all 0.25s ease;
+      cursor: pointer;
+      min-width: 120px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .yes {
       background: linear-gradient(45deg, #ffffff, #ffe3ed);
       color: #ff2f6d;
-      left: 28%;
       box-shadow: 0 10px 20px rgba(0,0,0,0.25);
     }
 
-    .yes:hover {
-      transform: translateY(-3px) scale(1.08);
-      box-shadow: 0 20px 30px rgba(0,0,0,0.35);
+    .yes:active {
+      transform: scale(0.96);
     }
 
     .no {
       background: linear-gradient(45deg, #ff2f6d, #ff6f9f);
       color: white;
-      left: 55%;
       box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+      position: relative;
     }
 
-    /* 3D hearts floating in background */
+    /* Floating hearts optimized for mobile */
     .heart3d {
-      position: absolute;
-      font-size: 28px;
-      animation: floatHeart linear infinite;
-      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
-      transform: translateZ(0);
+      position: fixed;
+      bottom: -20px;
+      font-size: 22px;
+      animation: floatHeart linear forwards;
+      pointer-events: none;
     }
 
     @keyframes floatHeart {
-      from { transform: translateY(100vh) scale(0.8) rotate(0deg); opacity: 0; }
+      from { transform: translateY(0) scale(0.8); opacity: 0; }
       10% { opacity: 1; }
-      to { transform: translateY(-10vh) scale(1.3) rotate(360deg); opacity: 0; }
+      to { transform: translateY(-110vh) scale(1.3); opacity: 0; }
     }
 
     .success {
-      font-size: 1.9rem;
-      animation: pop 0.6s ease forwards;
-      line-height: 1.6;
-      text-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      font-size: clamp(1.4rem, 5vw, 1.8rem);
+      line-height: 1.5;
+      animation: pop 0.5s ease forwards;
     }
 
     @keyframes pop {
-      0% { transform: scale(0.5) rotateX(40deg); opacity: 0; }
-      100% { transform: scale(1) rotateX(0deg); opacity: 1; }
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* iPhone safe area padding */
+    @supports (padding: max(0px)) {
+      body { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background music -->
   <audio id="bgMusic" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5b1b0a6c9f.mp3?filename=romantic-piano-ambient-110997.mp3" type="audio/mpeg">
   </audio>
@@ -148,18 +140,23 @@
 
     <div class="buttons">
       <button class="yes" onclick="sayYes()">Yes 💖</button>
-      <button class="no" id="noBtn" onmouseover="moveNo()">No 😜</button>
+      <button class="no" id="noBtn">No 😜</button>
     </div>
   </div>
 
   <script>
+    const noBtn = document.getElementById('noBtn');
+
+    // Works on iPhone (touch) + desktop
     function moveNo() {
-      const btn = document.getElementById('noBtn');
-      const x = Math.random() * window.innerWidth * 0.7;
-      const y = Math.random() * window.innerHeight * 0.6;
-      btn.style.left = x + 'px';
-      btn.style.top = y + 'px';
+      const btn = noBtn;
+      const x = (Math.random() * 140) - 70; // move left/right
+      const y = (Math.random() * 60) - 30;  // move up/down
+      btn.style.transform = `translate(${x}px, ${y}px)`;
     }
+
+    noBtn.addEventListener('touchstart', moveNo);
+    noBtn.addEventListener('mouseover', moveNo);
 
     function sayYes() {
       const music = document.getElementById('bgMusic');
@@ -182,10 +179,10 @@
         heart.className = 'heart3d';
         heart.innerText = '💖';
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
-      }, 250);
+        setTimeout(() => heart.remove(), 5000);
+      }, 300);
     }
   </script>
 </body>
