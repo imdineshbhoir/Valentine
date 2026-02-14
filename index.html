@@ -10,118 +10,157 @@
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+    /* 🌻 Sunflower aesthetic background (yellow + pink dreamy) */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      min-height: 100svh; /* iPhone safe viewport */
+      min-height: 100svh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      color: white;
       overflow-x: hidden;
+      color: #fff;
+      background:
+        radial-gradient(circle at 15% 20%, #ffe58a, transparent 35%),
+        radial-gradient(circle at 85% 30%, #ffd24d, transparent 40%),
+        radial-gradient(circle at 25% 85%, #ffb3d9, transparent 40%),
+        radial-gradient(circle at 90% 90%, #ff7fbf, transparent 45%),
+        linear-gradient(135deg, #ffd84d, #ff9ecb, #ff6fb5);
+      background-size: 300% 300%;
+      animation: bgMove 12s ease infinite;
+      position: relative;
     }
 
-    /* Mobile friendly 3D glass card */
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Soft sunflower sparkle layer */
+    body::before {
+      content: '🌻  🌻  🌻';
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0.06;
+      font-size: clamp(80px, 12vw, 140px);
+      pointer-events: none;
+      transform: rotate(-8deg);
+    }
+
+    /* 🌻 Glass sunflower card */
     .card {
       width: 100%;
       max-width: 420px;
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(18px);
-      border-radius: 22px;
-      padding: 28px 22px 30px;
+      padding: 34px 26px 38px;
+      border-radius: 28px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      animation: floatSoft 5s ease-in-out infinite;
+      background: linear-gradient(145deg, rgba(255,216,77,0.35), rgba(255,255,255,0.10));
+      backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow:
+        0 30px 70px rgba(255, 196, 0, 0.35),
+        0 12px 30px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+      transform-style: preserve-3d;
+      animation: float3d 5.5s ease-in-out infinite;
     }
 
-    @keyframes floatSoft {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    @keyframes float3d {
+      0%,100% { transform: translateY(0) rotateX(0deg); }
+      50% { transform: translateY(-12px) rotateX(4deg); }
     }
 
     h1 {
-      font-size: clamp(1.8rem, 6vw, 2.2rem);
-      margin: 6px 0 10px;
+      font-size: clamp(1.9rem, 6vw, 2.4rem);
+      margin: 8px 0 12px;
+      text-shadow: 0 10px 25px rgba(0,0,0,0.35);
     }
 
     p {
       opacity: 0.95;
-      margin: 0 0 6px;
       font-size: 0.95rem;
+      margin-bottom: 6px;
     }
 
     h2 {
-      font-size: clamp(1.2rem, 4.5vw, 1.5rem);
-      margin: 10px 0 18px;
+      font-size: clamp(1.3rem, 4.5vw, 1.6rem);
+      margin: 10px 0 22px;
       font-weight: 600;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.35);
     }
 
     .buttons {
       display: flex;
       justify-content: center;
-      gap: 14px;
-      margin-top: 18px;
+      gap: 16px;
+      margin-top: 20px;
       position: relative;
-      min-height: 60px;
     }
 
     button {
       border: none;
-      padding: 14px 20px;
+      padding: 15px 22px;
       font-size: 1rem;
       border-radius: 999px;
       font-weight: 600;
       cursor: pointer;
-      min-width: 120px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-width: 130px;
+      transition: all 0.25s ease;
+      transform: translateZ(20px);
     }
 
+    /* 🌻 YES button sunflower glow */
     .yes {
-      background: linear-gradient(45deg, #ffffff, #ffe3ed);
-      color: #ff2f6d;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+      background: linear-gradient(135deg, #fff7c2, #ffe58a, #ffd24d);
+      color: #d6336c;
+      box-shadow:
+        0 18px 35px rgba(255, 196, 0, 0.55),
+        inset 0 3px 8px rgba(255,255,255,0.9);
     }
 
-    .yes:active {
-      transform: scale(0.96);
-    }
+    .yes:active { transform: scale(0.95) translateZ(10px); }
 
+    /* 🌸 NO button soft pink */
     .no {
-      background: linear-gradient(45deg, #ff2f6d, #ff6f9f);
-      color: white;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-      position: relative;
+      background: linear-gradient(135deg, #ff7fbf, #ff5fa8, #ff3f8e);
+      color: #fff;
+      box-shadow:
+        0 18px 35px rgba(255, 64, 140, 0.45),
+        inset 0 3px 8px rgba(255,255,255,0.35);
     }
 
-    /* Floating hearts optimized for mobile */
-    .heart3d {
+    /* Floating items (sunflowers + hearts) */
+    .floatItem {
       position: fixed;
       bottom: -20px;
-      font-size: 22px;
-      animation: floatHeart linear forwards;
+      font-size: 24px;
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 8px 15px rgba(0,0,0,0.35));
       pointer-events: none;
     }
 
-    @keyframes floatHeart {
-      from { transform: translateY(0) scale(0.8); opacity: 0; }
+    @keyframes floatUp {
+      from { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
       10% { opacity: 1; }
-      to { transform: translateY(-110vh) scale(1.3); opacity: 0; }
+      to { transform: translateY(-120vh) scale(1.35) rotate(360deg); opacity: 0; }
     }
 
     .success {
-      font-size: clamp(1.4rem, 5vw, 1.8rem);
-      line-height: 1.5;
-      animation: pop 0.5s ease forwards;
+      font-size: clamp(1.5rem, 5vw, 1.9rem);
+      line-height: 1.6;
+      text-shadow: 0 10px 25px rgba(0,0,0,0.45);
+      animation: pop3d 0.6s ease forwards;
     }
 
-    @keyframes pop {
-      0% { transform: scale(0.6); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+    @keyframes pop3d {
+      0% { transform: scale(0.5) rotateX(30deg); opacity: 0; }
+      100% { transform: scale(1) rotateX(0deg); opacity: 1; }
     }
 
-    /* iPhone safe area padding */
     @supports (padding: max(0px)) {
       body { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
     }
@@ -147,12 +186,10 @@
   <script>
     const noBtn = document.getElementById('noBtn');
 
-    // Works on iPhone (touch) + desktop
     function moveNo() {
-      const btn = noBtn;
-      const x = (Math.random() * 140) - 70; // move left/right
-      const y = (Math.random() * 60) - 30;  // move up/down
-      btn.style.transform = `translate(${x}px, ${y}px)`;
+      const x = (Math.random() * 140) - 70;
+      const y = (Math.random() * 60) - 30;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
     }
 
     noBtn.addEventListener('touchstart', moveNo);
@@ -165,24 +202,26 @@
       const card = document.getElementById('card');
       card.innerHTML = `
         <div class="success">
-          Yayyy Rasika! 💖💖💖<br>
-          You just made my day 😍<br><br>
+          Yayyy Rasika! 🌻💖🌻<br>
+          You are my sunshine ☀️<br><br>
           Forever yours,<br>
           <b>Dinesh Bhoir</b> 💘
         </div>`;
-      startHearts();
+      startFloat();
     }
 
-    function startHearts() {
+    function startFloat() {
+      const items = ['🌻','💖','🌻','💗','🌻'];
       setInterval(() => {
-        const heart = document.createElement('div');
-        heart.className = 'heart3d';
-        heart.innerText = '💖';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 5000);
-      }, 300);
+        const el = document.createElement('div');
+        el.className = 'floatItem';
+        el.innerText = items[Math.floor(Math.random() * items.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.fontSize = (Math.random() * 12 + 22) + 'px';
+        el.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 5000);
+      }, 260);
     }
   </script>
 </body>
